@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magutshwa Fragrances</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background-color: #5f259f;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .slogan {
+      font-style: italic;
+      font-size: 0.9em;
+      color: #f3e6ff;
+    }
+    .hero {
+      padding: 50px 20px;
+      background-color: #fff3c4;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    .hero p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    .search-bar input {
+      padding: 10px;
+      margin: 0 5px;
+      width: 200px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .products-section {
+      padding: 40px 20px;
+    }
+    .products-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 20px;
+    }
+    .product-card {
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .product-card h3 {
+      color: #5f259f;
+      margin: 15px 0 5px;
+    }
+    .product-card p.price {
+      color: #ffb703;
+      font-weight: bold;
+    }
+    .product-card p.desc {
+      font-size: 0.95em;
+      color: #555;
+      padding: 0 10px;
+    }
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.8em;
+      }
+      .search-bar input {
+        width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Magutshwa Fragrances</h1>
+      <p class="slogan">Time is money, We save you both!!</p>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="cart-icon">
+        <i class="fas fa-shopping-bag"></i>
+        <span id="cart-count">0</span>
+      </a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Explore Our Fragrances</h1>
+    <p>Elevate your essence with premium scents for every moment.</p>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="What fragrance are you looking for?">
+    </div>
+  </section>
+
+  <section class="products-section">
+    <h2>Featured Collection</h2>
+    <div class="product-grid" id="perfumeGrid">
+      <div class="product-card" data-name="White Oud">
+        <img src="images/WhiteOud.jpg" alt="White Oud" />
+        <h3>White Oud</h3>
+        <p class="price">R150</p>
+        <p class="desc">Warm & Woody</p>
+      </div>
+      <div class="product-card" data-name="Dezire Blue">
+        <img src="images/DezireBlue.jpg" alt="Dezire Blue" />
+        <h3>Dezire Blue</h3>
+        <p class="price">R150</p>
+        <p class="desc">Fresh & Aquatic</p>
+      </div>
+      <div class="product-card" data-name="Oud & Vanilla">
+        <img src="images/Oud&Vanilla.jpg" alt="Oud & Vanilla" />
+        <h3>Oud & Vanilla</h3>
+        <p class="price">R150</p>
+        <p class="desc">Zesty & Energetic</p>
+      </div>
+      <div class="product-card" data-name="Black Oud">
+        <img src="images/BlackOud.jpg" alt="Black Oud" />
+        <h3>Black Oud</h3>
+        <p class="price">R150</p>
+        <p class="desc">Romantic & Deep</p>
+      </div>
+      <div class="product-card" data-name="Stallion">
+        <img src="images/Stallion.jpg" alt="Stallion" />
+        <h3>Stallion</h3>
+        <p class="price">R150</p>
+        <p class="desc">Woody and fresh</p>
+      </div>
+      <div class="product-card" data-name="Dezire Ocean">
+        <img src="images/DezireOcean.jpg" alt="Dezire Ocean" />
+        <h3>Dezire Ocean</h3>
+        <p class="price">R150</p>
+        <p class="desc">Aquatic and Fresh</p>
+      </div>
+      <div class="product-card" data-name="Wild Elixir">
+        <img src="images/WildElixir.jpg" alt="Wild Elixir" />
+        <h3>Wild Elixir</h3>
+        <p class="price">R150</p>
+        <p class="desc">Romantic & Deep</p>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById("cart-count").innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const searchInput = document.getElementById('searchInput');
+    const perfumeGrid = document.getElementById('perfumeGrid');
+    const perfumeItems = perfumeGrid.querySelectorAll('.product-card');
+
+    searchInput.addEventListener('input', function() {
+      const searchTerm = searchInput.value.toLowerCase();
+      perfumeItems.forEach(item => {
+        const name = item.dataset.name.toLowerCase();
+        item.style.display = name.includes(searchTerm) ? 'block' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

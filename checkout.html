@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Magutshwa Fragrances | Checkout</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f3f2f7;
+      color: #333;
+    }
+    header {
+      background-color: #5f259f;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: 500;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .checkout-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .checkout-form, .order-summary {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      padding: 30px;
+      flex: 1;
+      min-width: 300px;
+    }
+    .checkout-form h2, .order-summary h2 {
+      color: #5f259f;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+    form {
+      width: 100%;
+    }
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+      width: 100%;
+    }
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: #aaa;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 38px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    .order-summary .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .order-summary .item-name {
+      display: flex;
+      align-items: center;
+    }
+    .order-summary .total {
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+      font-weight: bold;
+      font-size: 1.2em;
+      display: flex;
+      justify-content: space-between;
+    }
+    .checkout-button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      background-color: #5f259f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .checkout-button:hover {
+      background-color: #4a1d7d;
+    }
+    .payment-options {
+      margin-top: 30px;
+    }
+    .payment-options label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .bank-details {
+      margin-top: 10px;
+      background: #f0eaff;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #c9b3ef;
+      color: #4a1d7d;
+      font-weight: 500;
+    }
+    @media (max-width: 768px) {
+      .checkout-container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Magutshwa Fragrances</strong></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <div class="checkout-container">
+    <div class="checkout-form">
+      <h2>Billing Details</h2>
+      <form id="checkoutForm">
+        <div class="input-group">
+          <i class="fa fa-user"></i>
+          <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-phone"></i>
+          <input type="tel" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="input-group">
+          <i class="fa fa-location-dot"></i>
+          <input type="text" name="address" placeholder="Shipping Address" required>
+        </div>
+
+        <div class="payment-options">
+          <h3>Payment Method</h3>
+          <label><input type="radio" name="payment" value="EFT" checked required> EFT (Electronic Funds Transfer)</label>
+          <div class="bank-details">
+            <p><strong>Pay To:</strong> Magutshwa Fragrances</p>
+            <p><strong>Bank Account:</strong> **********</p>
+            <p><strong>Reference:</strong> Your Full Name</p>
+          </div>
+        </div>
+
+        <button type="submit" class="checkout-button">Place Order</button>
+      </form>
+    </div>
+
+    <div class="order-summary" id="orderSummary">
+      <h2>Order Summary</h2>
+      <div id="itemsContainer"></div>
+      <div class="item" id="deliveryRow">
+        <span>Delivery</span>
+        <span>R60</span>
+      </div>
+      <div class="total">
+        <span>Total</span>
+        <span id="totalAmount">R0</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const deliveryFee = 60;
+
+    function loadCartSummary() {
+      const itemsContainer = document.getElementById('itemsContainer');
+      const deliveryRow = document.getElementById('deliveryRow');
+      itemsContainer.innerHTML = '';
+
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+      if (cart.length === 0) {
+        deliveryRow.style.display = 'none';
+        document.getElementById('totalAmount').textContent = 'R0';
+        return;
+      } else {
+        deliveryRow.style.display = 'flex';
+      }
+
+      let total = 0;
+
+      cart.forEach(item => {
+        const quantity = parseInt(item.quantity);
+        const price = parseFloat(item.price);
+        if (!quantity || !price) return;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item';
+        itemDiv.innerHTML = `
+          <div class="item-name">
+            <span>${item.name} (x${quantity})</span>
+          </div>
+          <span>R${(price * quantity).toFixed(2)}</span>
+        `;
+        itemsContainer.appendChild(itemDiv);
+        total += price * quantity;
+      });
+
+      total += deliveryFee;
+      document.getElementById('totalAmount').textContent = 'R' + total.toFixed(2);
+    }
+
+    function handleOrderSubmission() {
+      const form = document.getElementById('checkoutForm');
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const phone = formData.get('phone');
+        const address = formData.get('address');
+        const payment = formData.get('payment');
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const orderSummary = cart.map(item => `${item.name} (x${item.quantity}) - R${(item.quantity * item.price).toFixed(2)}`).join('\n');
+        const delivery = `Delivery Fee - R${deliveryFee}`;
+        const totalAmount = cart.reduce((sum, i) => sum + i.price * i.quantity, 0) + deliveryFee;
+        const total = `Total - R${totalAmount.toFixed(2)}`;
+
+        const emailBody = `Billing Details:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}\n\nPayment Method: ${payment}\n\nOrder Summary:\n${orderSummary}\n${delivery}\n${total}`;
+
+        const mailtoLink = document.createElement('a');
+        mailtoLink.href = `mailto:visionvaultsstore@gmail.com?subject=New Order&body=${encodeURIComponent(emailBody)}`;
+        mailtoLink.style.display = 'none';
+        document.body.appendChild(mailtoLink);
+        mailtoLink.click();
+        document.body.removeChild(mailtoLink);
+
+        localStorage.removeItem('cart');
+        window.location.href = 'index.html';
+      });
+    }
+
+    loadCartSummary();
+    handleOrderSubmission();
+  </script>
+</body>
+</html>
